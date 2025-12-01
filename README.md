@@ -1,24 +1,8 @@
-# aoc
-
-[![Package Version](https://img.shields.io/hexpm/v/aoc)](https://hex.pm/packages/aoc)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/aoc/)
+# Advent Of Code 2025
 
 ```sh
-gleam add aoc@1
-```
-```gleam
-import aoc
-
-pub fn main() -> Nil {
-  // TODO: An example of the project in use
-}
+# Run day 1
+gleam run run 1
 ```
 
-Further documentation can be found at <https://hexdocs.pm/aoc>.
-
-## Development
-
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-```
+More Documentation: https://github.com/TanklesXL/gladvent
