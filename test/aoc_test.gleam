@@ -5,7 +5,5 @@ pub fn main() -> Nil {
 }
 
 pub fn sandbox_test() {
-  echo { 0 % 100 }
-  echo { 99 % 100 }
-  echo { 100 % 100 }
+  echo { 829 % 100 }
 }
