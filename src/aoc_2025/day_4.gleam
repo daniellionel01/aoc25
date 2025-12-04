@@ -1,4 +1,3 @@
-import gleam/int
 import gleam/list
 import gleam/string
 import iv
@@ -68,7 +67,52 @@ pub fn pt_1(input: Grid) {
 }
 
 pub fn pt_2(input: Grid) {
-  todo as "part 2 not implemented"
+  do_pt_2(input, 0)
+}
+
+pub fn do_pt_2(input: Grid, removed: Int) {
+  let accessible =
+    input.cells
+    |> iv.index_map(fn(cell, index) {
+      let #(row, col) = get_row_col(input, index)
+      let adjacent = adjacent_cells(input, row, col)
+      #(index, cell, adjacent)
+    })
+    |> iv.filter(fn(el) {
+      let #(_, cell, _) = el
+      case cell {
+        Paper -> True
+        Empty -> False
+      }
+    })
+    |> iv.filter(fn(el) {
+      let #(_, _, adjacent) = el
+      let paper =
+        iv.filter(adjacent, fn(cell) {
+          case cell {
+            Empty -> False
+            Paper -> True
+          }
+        })
+      iv.length(paper) < 4
+    })
+
+  let count = iv.length(accessible)
+  case count {
+    0 -> removed
+    _ -> {
+      let cells =
+        iv.fold(from: input.cells, over: accessible, with: fn(acc, cur) {
+          let #(index, _, _) = cur
+          let assert Ok(acc) = iv.update(acc, index, fn(_) { Empty })
+          acc
+        })
+
+      let input = Grid(..input, cells:)
+
+      do_pt_2(input, removed + count)
+    }
+  }
 }
 
 pub fn get_row_col(grid: Grid, index: Int) -> #(Int, Int) {
